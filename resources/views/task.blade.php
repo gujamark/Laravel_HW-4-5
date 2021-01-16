@@ -36,103 +36,14 @@
 
 
     <span id="modal-wrapper">
-        {{-- @include('task-create') --}}
+        
     </span>
 
-    <script>
-        // SAVE
 
-        $(document).ready(function() {
-            
-            $(document).on('click',"#task-submit-button", function(e) {
-                var url = "{{ route('task.store')  }}";
-                var type = "POST";
-                
-                if($("#task-to-edit-id").val()){
-                    url = "task/" + $("#task-to-edit-id").val();
-                    type = 'PUT';
-                }
 
-            e.preventDefault();
-                $.ajax({
-                    url : url,
-                    type: type,
-                    data : {
-                        id : $("#task-to-edit-id").val(),
-                        name : $("#task-name").val(),
-                        description : $("#task-description").val(),
-                        status : $("#task-status").val()
-                    },
-                    success: function () {
-                        $("#main").load(location.href + " #main > *");
-                        $("#task-edit-modal").load(location.href + " #task-create-modal > *");
-                    },
-                    error: function() {
-
-                    }
-                });
-            });
-        });
-    </script>
-
-    <script>
-        // EDIT
-
-        $(document).on('click','#edit-button',function(e) {
-            e.preventDefault();
-            var taskToEdit = $(e.currentTarget).data("id");
-                $.ajax({
-                    url : "task/" + taskToEdit + "/edit",
-                    type: "GET",
-                    success: function (e) {
-                        $("#modal-wrapper").html(e);
-                        $("#task-create-modal").modal("toggle");
-                    },
-                    error: function() {
-
-                    }
-                });
-            });
-    </script>
+    <script src="{{ asset("js/save.js") }}"></script>
+    <script src="{{ asset("js/edit.js") }}"></script>
+    <script src="{{ asset("js/delete.js") }}"></script>
+    <script src="{{ asset("js/create.js") }}"></script>
     
-    <script>
-        //DELETE
-        
-            $(document).on('click','.delete-button',function(e) {
-            e.preventDefault();
-            var taskToDelete = $(e.currentTarget).data("id");
-                $.ajax({
-                    url : "task/" + taskToDelete,
-                    type: "DELETE",
-                    success: function () {
-                        $("#main").load(location.href + " #main > *");
-                    },
-                    error: function() {
-
-                    }
-                });
-            });
-        
-    </script>
-
-    <script>
-        // CREATE
-        
-            $(document).on('click','#task-create-modal-button',function(e) {
-            e.preventDefault();
-            var taskToDelete = $(e.currentTarget).data("id");
-                $.ajax({
-                    url : "task/create",
-                    type: "GET",
-                    success: function (e) {
-                        $("#modal-wrapper").html(e);
-                        $("#task-create-modal").modal("toggle");
-                    },
-                    error: function() {
-
-                    }
-                });
-            });
-        
-    </script>
 @endsection

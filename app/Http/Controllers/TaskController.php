@@ -54,6 +54,11 @@ class TaskController extends Controller
             "description" => $request->description,
             "status_id" => $request->status
         ]);
+
+        return [
+            "success" => true,
+            "message" => "Task successfully created"
+        ];
     }
 
     /**
@@ -102,6 +107,11 @@ class TaskController extends Controller
             'description' => $request->description,
             'status_id' => $request->status
         ]);
+
+        return [
+            "success" => true,
+            "message" => "Task updated successfully"
+        ];
     }
 
     /**
@@ -113,5 +123,10 @@ class TaskController extends Controller
     public function destroy($id)
     {
         Task::where("id",$id)->delete();
+        
+        return [
+            "success" => true,
+            "message" => "Task deleted successfuly"
+        ];
     }
 }
